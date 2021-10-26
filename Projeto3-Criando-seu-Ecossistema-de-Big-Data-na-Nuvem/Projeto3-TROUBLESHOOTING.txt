@@ -1,0 +1,55 @@
+Tópico:
+https://web.digitalinnovation.one/topics/criando-seu-ecossistema-de-big-data-na-nuvem-2?tab=forum&topic_type=all&search=criando%20seu%20ecossistema&back=%2Ftrack%2Fcognizant-cloud-data-engineer&back_order=newest&back_page=1&page=1&order=oldest
+
+Erro 1: yaml.scanner.ScannerError: mapping values are not allowed here
+      in "/home/user/.mrjob.conf", line 8, column 20
+
+Solução:	  
+Esse erro ocorreu aqui por causa que o texto precisa estar validado em YAML
+Pra testar o mrjob.conf --> https://jsonformatter.org/yaml-formatter
+Ou colocar o conteúdo do mrjob.conf como JSON: 
+{
+  "runners": {
+    "emr": {
+      "aws_access_key_id": "XXXXXXXXXX",
+      "aws_secret_access_key": "XXXXXXXXXXXXXX",
+      "ec2_key_pair": "nome_do_pem",
+      "ec2_key_pair_file": "/home/user/.ssh/nome_do_pem.pem",
+      "region": "sua_regiao",
+      "ssh_tunnel": true,
+      "instance_type": "m5.xlarge",
+      "num_core_instances": 3
+    }
+  }
+}
+
+
+Erro 2: "TypeError: options for emr (from /home/usuario/.mrjob.conf) must be a dict"
+
+Depois de validado, aqui deu erro "TypeError: options for emr (from /home/usuario/.mrjob.conf) must be a dict"
+com o traceback no MRJob
+
+Solução:
+sudo pip install mrjob
+sudo pip install boto3
+
+Como eu não tinha atualizado nada na VM eu acabei fazendo junto:
+sudo apt update && sudo apt upgrade -y
+
+
+Erro 3: Cluster j-1TYJQ45JO7OCW was TERMINATED_WITH_ERRORS: The given SSH key name was invalid
+
+E por último aconteceu esse conflito. A Chave EC2 PRECISA ser criada na mesma região que o bucket S3 foi criado.
+https://mrjob.readthedocs.io/en/latest/guides/emr-quickstart.html#configuring-ssh-credentials
+
+Solução:
+S3 bucket --> escolher região
+EC2 chave --> mudar região para a mesma do S3 no cantinho superior ao lado do usuário antes de criar a chave.
+
+
+Erro 4: botocore.exceptions.ClientError: An error occurred (ValidationException) when calling the AddJobFlowSteps operation: A job flow that is shutting down, terminated, or finished may not be modified.
+
+Erro aparece ao executar jobs com mais de um step. Tive que retirar o segundo step do ContaTOP10_MRJob.py
+
+Solução?
+Só encontrei essa informação:This issue is because the botocore package is deprecated.
