@@ -1,5 +1,5 @@
 Tópico:
-https://web.digitalinnovation.one/topics/criando-seu-ecossistema-de-big-data-na-nuvem-2?tab=forum&topic_type=all&search=criando%20seu%20ecossistema&back=%2Ftrack%2Fcognizant-cloud-data-engineer&back_order=newest&back_page=1&page=1&order=oldest
+https://web.digitalinnovation.one/topics/criando-seu-ecossistema-de-big-data-na-nuvem-2
 
 Erro 1: yaml.scanner.ScannerError: mapping values are not allowed here
       in "/home/user/.mrjob.conf", line 8, column 20
